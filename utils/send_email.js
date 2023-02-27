@@ -1,13 +1,13 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail =  (mailoptions) => {
+const sendEmail = (mailoptions) => {
 
   var transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
     auth: {
-      user: "d90b40e8dd271c",
-      pass: "27d89a236c17a1"
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD
     }
   });
 
@@ -18,12 +18,12 @@ const sendEmail =  (mailoptions) => {
     text: mailoptions.text,
     html: mailoptions.html
   };
-   transport.sendMail(message, (error, info) => {
+  transport.sendMail(message, (error, info) => {
     if (error) {
-        return console.log(error);
+      return console.log(error);
     }
     return message
-})
+  })
 }
 module.exports = sendEmail
 
